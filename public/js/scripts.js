@@ -1,12 +1,14 @@
-let cityName = ''; // Declare a variable to store the city name
-let forecastData = []; // Declare a variable to store the forecast data
+let cityName = '';
+let forecastData = [];
 
 function getWeather() {
     const city = document.getElementById('cityInput').value;
     axios.post('/get-weather', { city_name: city })
         .then(response => {
-            cityName = response.data.city.name; // Store the city name
-            forecastData = response.data.list; // Store the forecast data
+           if(response.data.city && response.data.list){
+               cityName = response.data.city.name;
+               forecastData = response.data.list;
+           }
             displayWeather(response.data);
         }).catch(error => console.error(error));
 }
@@ -20,7 +22,7 @@ function saveForecast() {
         const windSpeed = firstForecast.wind.speed.toFixed(1);
 
         axios.post('/save-weather', {
-            city_name: cityName, // Use the stored city name
+            city_name: cityName,
             timestamp_dt: timestamp,
             min_tmp: minTemp,
             max_tmp: maxTemp,
