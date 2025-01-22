@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Http;
 
 class WeatherController extends Controller
 {
-    private $apiKey = 'e4b8b08c185638b825af37facfe1fabb';
+    private $apiKey = '';
 
     public function index()
     {
